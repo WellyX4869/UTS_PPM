@@ -22,13 +22,23 @@
             else if(waktu > 12){
                 cicil = 1;
             }
-            var res = pinjaman + (pinjaman * (cicil/100) * waktu);
+            var res1 = (pinjaman * (cicil/100) * waktu);
+            var res = res1 + pinjaman; 
             $("#result").text(res);
+            var str = '';
+            var cicilan = res / waktu;
+            for(var i = 0; i<=waktu; i++){
+                str += '<tr><td>'+pinjaman+'</td><td>'+waktu+'</td><td>'+res1+'</td><td>'+cicilan.toFixed(2)+'</td><td>'+res.toFixed(2)+'</td></tr>';
+                res -= cicilan;
+            }
+
+            $("#tabel").find('tbody')
+                .append($(str));
         });
     });
 </script>
 <body> 
-    <div data-role="page">
+    <div data-role="page" id="page1">
         <div data-role="header">
             <h1>Input Pinjaman</h1>
         </div><!-- /header -->
@@ -36,13 +46,51 @@
         <div role="main" class="ui-content">
             <label for="text-basic">Pinjaman:</label>
             <input type="text" name="text-basic" id="pinjaman" value="">
-            <label for="text-basic">Waktu Pinjaman:</label>
+            <label for="text-basic">Waktu Pinjaman (Cicilan):</label>
             <input type="text" name="text-basic" id="waktu" value="">
             <button class="ui-btn ui-btn-b" id="hitung">Hitung</button>
-            <label for="text-basic">Total Pengembalian : </label><div id="result"></div>
+            Total Pengembalian : <span id="result"></span>
         </div><!-- /content -->
     
         <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-iconpos="bottom">
+                <ul>
+                   <li><a href="#page1" data-icon="home" class="ui-btn-active">Input Pinjaman</a></li>
+                   <li><a href="#page2" data-icon="info">List Pinjaman</a></li>
+                </ul>
+            </div><!-- /navbar -->
+            <h4>&copy; Copyright WellyX4869 2020</h4>
+        </div><!-- /footer -->
+    </div><!-- /page -->
+
+    <div data-role="page" id="page2">
+        <div data-role="header">
+            <h1>List Pinjaman</h1>
+        </div><!-- /header -->
+    
+        <div role="main" class="ui-content">
+           <table data-role="table" data-mode="columntoggle" class="ui-responsive" id="tabel">
+                <thead>
+                    <tr>
+                    <th>Pinjaman</th>
+                    <th>Waktu pinjam</th>
+                    <th>Total Bunga</th>
+                    <th>Cicilan Per Bulan</th>
+                    <th>Total Pengembalian</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div><!-- /content -->
+    
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar" data-iconpos="bottom">
+                <ul>
+                   <li><a href="#page1" data-icon="home">Input Pinjaman</a></li>
+                   <li><a href="#page2" data-icon="info" class="ui-btn-active">List Pinjaman</a></li>
+                </ul>
+            </div><!-- /navbar -->
             <h4>&copy; Copyright WellyX4869 2020</h4>
         </div><!-- /footer -->
     </div><!-- /page -->
