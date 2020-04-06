@@ -8,7 +8,43 @@
 	<script src="http://code.jquery.com/jquery.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head>
+<script>
+    $(document).ready(function(){
+        $("#hitung").click(function(){
+            var waktu = parseFloat($("#waktu").val());
+            var pinjaman = parseFloat($("#pinjaman").val());
+            var cicil = 0;
+            if(waktu <= 6 && waktu >= 1){
+                cicil = 2;
+            }else if(waktu > 6 && waktu <= 12){
+                cicil = 1.5;
+            }
+            else if(waktu > 12){
+                cicil = 1;
+            }
+            var res = pinjaman + (pinjaman * (cicil/100) * waktu);
+            $("#result").text(res);
+        });
+    });
+</script>
 <body> 
-
+    <div data-role="page">
+        <div data-role="header">
+            <h1>Input Pinjaman</h1>
+        </div><!-- /header -->
+    
+        <div role="main" class="ui-content">
+            <label for="text-basic">Pinjaman:</label>
+            <input type="text" name="text-basic" id="pinjaman" value="">
+            <label for="text-basic">Waktu Pinjaman:</label>
+            <input type="text" name="text-basic" id="waktu" value="">
+            <button class="ui-btn ui-btn-b" id="hitung">Hitung</button>
+            <label for="text-basic">Total Pengembalian : </label><div id="result"></div>
+        </div><!-- /content -->
+    
+        <div data-role="footer" data-position="fixed">
+            <h4>&copy; Copyright WellyX4869 2020</h4>
+        </div><!-- /footer -->
+    </div><!-- /page -->
 </body>
 </html>
