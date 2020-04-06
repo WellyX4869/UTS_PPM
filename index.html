@@ -10,7 +10,7 @@
 </head>
 <script>
     $(document).ready(function(){
-        $("#hitung").click(function(){
+        $("#hitung").on("tap", function(){ //event 1
             var waktu = parseFloat($("#waktu").val());
             var pinjaman = parseFloat($("#pinjaman").val());
             var cicil = 0;
@@ -28,14 +28,27 @@
             var str = '';
             var cicilan = res / waktu;
             for(var i = 0; i<=waktu; i++){
-                str += '<tr><td>'+pinjaman+'</td><td>'+waktu+'</td><td>'+res1+'</td><td>'+cicilan.toFixed(2)+'</td><td>'+res.toFixed(2)+'</td></tr>';
+                if(i == waktu){
+                    str += '<tr><td>'+(i+1)+'</td><td>'+pinjaman+'</td><td>'+waktu+'</td><td>'+res1+'</td><td>'+cicilan.toFixed(2)+'</td><td>0</td></tr>';
+                }else{
+                    str += '<tr><td>'+(i+1)+'</td><td>'+pinjaman+'</td><td>'+waktu+'</td><td>'+res1+'</td><td>'+cicilan.toFixed(2)+'</td><td>'+res.toFixed(2)+'</td></tr>';
+                }
                 res -= cicilan;
             }
 
             $("#tabel").find('tbody')
                 .append($(str));
         });
+
+        $("#result").on("taphold", function(){ // event 2
+            $(this).text("");
+        });
+        $("#result").on("vmouseover", function(){ // event 3
+            $( this ).append( "<span style='color:#108040;'> vmouseover fired...</span>" );
+        });
+        
     });
+
 </script>
 <body> 
     <div data-role="page" id="page1">
@@ -69,19 +82,20 @@
         </div><!-- /header -->
     
         <div role="main" class="ui-content">
-           <table data-role="table" data-mode="columntoggle" class="ui-responsive" id="tabel">
-                <thead>
-                    <tr>
-                    <th>Pinjaman</th>
-                    <th>Waktu pinjam</th>
-                    <th>Total Bunga</th>
-                    <th>Cicilan Per Bulan</th>
-                    <th>Total Pengembalian</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <table data-role="table" id="tabel" data-mode="columntoggle" class="ui-body-d ui-shadow table-stripe ui-responsive" data-column-btn-theme="b" data-column-btn-text="Columns to display..." data-column-popup-theme="a">
+             <thead>
+               <tr class="ui-bar-d">
+                 <th data-priority="6">No.</th>
+                 <th data-priority="1">Pinjaman</th>
+                 <th data-priority="2">Waktu Pinjam</th>
+                 <th data-priority="3">Total Bunga</th>
+                 <th data-priority="4">Cicilan Per Bulan</th>
+                 <th data-priority="5">Total Pengembalian</th>
+               </tr>
+             </thead>
+             <tbody>
+             </tbody>
+           </table>
         </div><!-- /content -->
     
         <div data-role="footer" data-position="fixed">
